@@ -1,7 +1,16 @@
-import streamlit as st
+# Import libraries/packages
 import pandas as pd
+import warnings
 import numpy as np
-import pydeck as pdk
+import random
+import folium
+import branca.colormap as cm
+
+from streamlit_folium import st_folium
+
+# Get rid of warnings
+warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning)
+warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning)
 
 st.write("Hello - Testing a Simple Map in Streamlit")
 
@@ -25,22 +34,15 @@ vs_lat = df['Latitude'].mean()
 vs_lon = df['Longitude'].mean()
 
 # Create a scatterplot layer on pydeck
-st.pydeck_chart(pdk.Deck(
-    map_style=None,
-    initial_view_state=pdk.ViewState(latitude=vs_lat, longitude=vs_lon, zoom=13, bearing=0, pitch=0),
-    layers=pdk.Layer(
-        "ScatterplotLayer",
-        df,
-        pickable=True,
-        opacity=0.8,
-        stroked=True,
-        filled=True,
-        radius_scale=30,
-        radius_min_pixels=1,
-        radius_max_pixels=100,
-        get_position=['Longitude','Latitude'],
-        get_radius=['Number of Docks'],
-        get_fill_color=[255,140,0],
-        get_line_color=[0,0,0],
-    )
-))
+station_map = folium.Map(location=(vs_lat, vs_lon), zoom_start=14)
+
+df.apply(lambda row: folium.CircleMarker(
+                        location=[row['Latitude'],row['Longitude']], 
+                        tooltip=str(row['Kiosk ID'])+": "+row['Kiosk Name'],
+                        fill=True,
+                        fill_opacity=0.6
+                        )
+                    .add_to(station_map),
+                axis=1)
+
+st_map = st_folium(station_map, widt=725)
