@@ -5,6 +5,7 @@ import numpy as np
 import random
 import folium
 import branca.colormap as cm
+import streamlit as st
 
 from streamlit_folium import st_folium
 
