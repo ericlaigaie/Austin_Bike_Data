@@ -46,4 +46,4 @@ df.apply(lambda row: folium.CircleMarker(
                     .add_to(station_map),
                 axis=1)
 
-st_map = st_folium(station_map, widt=725)
+st_map = st_folium(station_map, width=725)
