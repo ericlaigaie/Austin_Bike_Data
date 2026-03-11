@@ -1,6 +1,5 @@
 # Import libraries/packages
 import pandas as pd
-import warnings
 import numpy as np
 import random
 import folium
@@ -9,9 +8,6 @@ import streamlit as st
 
 from streamlit_folium import st_folium
 
-# Get rid of warnings
-warnings.simplefilter(action='ignore', category=pd.errors.SettingWithCopyWarning)
-warnings.simplefilter(action='ignore', category=pd.errors.PerformanceWarning)
 
 st.write("Hello - Testing a Simple Map in Streamlit")
 
