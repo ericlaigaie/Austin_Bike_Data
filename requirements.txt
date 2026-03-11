@@ -1,8 +1,6 @@
 pandas
 warnings
 numpy
-random
 folium
 branca.colormap
-streamlit
 streamlit_folium
