@@ -3,3 +3,4 @@ numpy
 folium
 branca
 streamlit_folium
+altair==4.0
